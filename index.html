@@ -3,178 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Made-Up Language Dictionary & Mini-Game</title>
+    <title>Language Learning Game - Duolingo Style</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #333;
+            margin: 0;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
         }
         h1 {
-            font-size: 3rem;
+            color: #1a73e8;
             margin-bottom: 20px;
         }
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        td {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
         .game-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .game-container input {
-            padding: 10px;
-            font-size: 1rem;
             margin-top: 20px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
         }
-        .game-container button {
+        #game-word {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            padding: 10px;
+            font-size: 1.2em;
+            width: 100%;
+            margin-top: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        button {
             padding: 10px 20px;
-            background-color: #4CAF50;
+            font-size: 1.2em;
+            background-color: #1a73e8;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
+            margin-top: 10px;
         }
-        .game-container button:hover {
-            background-color: #45a049;
+        button:hover {
+            background-color: #0c59c1;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        #answer-key {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #555;
+        }
+        .answer-key-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .answer-key-table th, .answer-key-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .answer-key-table th {
+            background-color: #f4f4f4;
         }
     </style>
 </head>
 <body>
 
-    <h1>Made-Up Language Dictionary & Mini-Game</h1>
-    
-    <h2>Dictionary of Words</h2>
-    <table>
-        <tr>
-            <th>Made-Up Word</th>
-            <th>English Translation</th>
-        </tr>
-        <tr><td>Zelo</td><td>Hello</td></tr>
-        <tr><td>Zira</td><td>Goodbye</td></tr>
-        <tr><td>Tari</td><td>Please</td></tr>
-        <tr><td>Mira</td><td>Thank you</td></tr>
-        <tr><td>Ralu</td><td>Yes</td></tr>
-        <tr><td>Nalo</td><td>No</td></tr>
-        <tr><td>Vero</td><td>Water</td></tr>
-        <tr><td>Luno</td><td>Food</td></tr>
-        <tr><td>Pelo</td><td>Sleep</td></tr>
-        <tr><td>Sira</td><td>Love</td></tr>
-        <tr><td>Nira</td><td>Hate</td></tr>
-        <tr><td>Fara</td><td>Happy</td></tr>
-        <tr><td>Bira</td><td>Sad</td></tr>
-        <tr><td>Zika</td><td>Friend</td></tr>
-        <tr><td>Miko</td><td>Enemy</td></tr>
-        <tr><td>Tiko</td><td>Family</td></tr>
-        <tr><td>Hano</td><td>Home</td></tr>
-        <tr><td>Luno</td><td>Work</td></tr>
-        <tr><td>Piko</td><td>School</td></tr>
-        <tr><td>Fero</td><td>Music</td></tr>
-        <tr><td>Kira</td><td>Book</td></tr>
-        <tr><td>Vero</td><td>Game</td></tr>
-        <tr><td>Mira</td><td>Tree</td></tr>
-        <tr><td>Siro</td><td>Sky</td></tr>
-        <tr><td>Kuno</td><td>Sun</td></tr>
-        <tr><td>Funo</td><td>Moon</td></tr>
-        <tr><td>Viri</td><td>Star</td></tr>
-        <tr><td>Doro</td><td>City</td></tr>
-        <tr><td>Tumi</td><td>Forest</td></tr>
-        <tr><td>Kiro</td><td>Mountain</td></tr>
-        <tr><td>Boro</td><td>Ocean</td></tr>
-        <tr><td>Fira</td><td>River</td></tr>
-        <tr><td>Pomi</td><td>Road</td></tr>
-        <tr><td>Muri</td><td>Path</td></tr>
-        <tr><td>Vako</td><td>Strong</td></tr>
-        <tr><td>Lumi</td><td>Weak</td></tr>
-        <tr><td>Nami</td><td>Fast</td></tr>
-        <tr><td>Sami</td><td>Slow</td></tr>
-        <tr><td>Boro</td><td>Quiet</td></tr>
-        <tr><td>Koro</td><td>Loud</td></tr>
-        <tr><td>Lika</td><td>Talk</td></tr>
-        <tr><td>Vika</td><td>Listen</td></tr>
-        <tr><td>Mira</td><td>Read</td></tr>
-        <tr><td>Nira</td><td>Write</td></tr>
-        <tr><td>Siro</td><td>Watch</td></tr>
-        <tr><td>Viro</td><td>Play</td></tr>
-        <tr><td>Riko</td><td>Run</td></tr>
-        <tr><td>Filo</td><td>Sit</td></tr>
-        <tr><td>Tira</td><td>Stand</td></tr>
-        <tr><td>Kuno</td><td>Eat</td></tr>
-        <tr><td>Melo</td><td>Drink</td></tr>
-        <tr><td>Tomi</td><td>Jump</td></tr>
-        <tr><td>Piro</td><td>Work (action)</td></tr>
-        <tr><td>Miri</td><td>Rest</td></tr>
-        <tr><td>Nuri</td><td>Move</td></tr>
-        <tr><td>Tomi</td><td>Stop</td></tr>
-        <tr><td>Daro</td><td>Start</td></tr>
-        <tr><td>Malo</td><td>Finish</td></tr>
-        <tr><td>Bara</td><td>Good</td></tr>
-        <tr><td>Sana</td><td>Bad</td></tr>
-        <tr><td>Lumi</td><td>Hot</td></tr>
-        <tr><td>Luna</td><td>Cold</td></tr>
-        <tr><td>Fara</td><td>Big</td></tr>
-        <tr><td>Mira</td><td>Small</td></tr>
-        <tr><td>Pira</td><td>Heavy</td></tr>
-        <tr><td>Vira</td><td>Light</td></tr>
-        <tr><td>Biro</td><td>Beautiful</td></tr>
-        <tr><td>Kira</td><td>Ugly</td></tr>
-        <tr><td>Sira</td><td>Smart</td></tr>
-        <tr><td>Tara</td><td>Dumb</td></tr>
-        <tr><td>Zera</td><td>Young</td></tr>
-        <tr><td>Ziro</td><td>Old</td></tr>
-        <tr><td>Kari</td><td>Morning</td></tr>
-        <tr><td>Zuri</td><td>Night</td></tr>
-        <tr><td>Fori</td><td>Time</td></tr>
-        <tr><td>Nori</td><td>Day</td></tr>
-        <tr><td>Turi</td><td>Month</td></tr>
-        <tr><td>Zuri</td><td>Year</td></tr>
-        <tr><td>Suri</td><td>Now</td></tr>
-        <tr><td>Lori</td><td>Later</td></tr>
-        <tr><td>Fira</td><td>Always</td></tr>
-        <tr><td>Mori</td><td>Never</td></tr>
-        <tr><td>Viro</td><td>Maybe</td></tr>
-        <tr><td>Sora</td><td>Goodnight</td></tr>
-        <tr><td>Mira</td><td>Good morning</td></tr>
-        <tr><td>Ziro</td><td>Thank you</td></tr>
-        <tr><td>Liko</td><td>Excuse me</td></tr>
-        <tr><td>Boro</td><td>Sorry</td></tr>
-        <tr><td>Viro</td><td>Help</td></tr>
-        <tr><td>Miri</td><td>Stop</td></tr>
-        <tr><td>Lira</td><td>Go</td></tr>
-    </table>
-
-    <div class="game-container">
-        <h2>Mini-Game: Translate the Word!</h2>
-        <p id="game-word">Zelo</p>
-        <input type="text" id="answer" placeholder="Type your answer here" />
-        <button id="submit-answer">Submit</button>
-        <p id="result"></p>
+    <div class="container">
+        <h1>Learn the Language Game</h1>
+        <div class="game-container">
+            <p>Translate the word:</p>
+            <p id="game-word">Zelo</p>
+            <input type="text" id="answer" placeholder="Type your answer here" />
+            <button id="submit-answer">Submit</button>
+            <p id="result"></p>
+        </div>
+        <div id="answer-key">
+            <h3>Answer Key</h3>
+            <table class="answer-key-table">
+                <tr>
+                    <th>Made-up Word</th>
+                    <th>Translation</th>
+                </tr>
+                <tr>
+                    <td>Zelo</td>
+                    <td>Hello</td>
+                </tr>
+                <tr>
+                    <td>Zira</td>
+                    <td>Goodbye</td>
+                </tr>
+                <tr>
+                    <td>Tari</td>
+                    <td>Please</td>
+                </tr>
+                <tr>
+                    <td>Mira</td>
+                    <td>Thank you</td>
+                </tr>
+                <tr>
+                    <td>Ralu</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Nalo</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Vero</td>
+                    <td>Water</td>
+                </tr>
+                <tr>
+                    <td>Luno</td>
+                    <td>Food</td>
+                </tr>
+                <tr>
+                    <td>Pelo</td>
+                    <td>Sleep</td>
+                </tr>
+                <tr>
+                    <td>Sira</td>
+                    <td>Love</td>
+                </tr>
+                <tr>
+                    <td>Nira</td>
+                    <td>Hate</td>
+                </tr>
+                <tr>
+                    <td>Fara</td>
+                    <td>Happy</td>
+                </tr>
+                <tr>
+                    <td>Bira</td>
+                    <td>Sad</td>
+                </tr>
+                <tr>
+                    <td>Cora</td>
+                    <td>Friend</td>
+                </tr>
+                <tr>
+                    <td>Pira</td>
+                    <td>Enemy</td>
+                </tr>
+                <tr>
+                    <td>Gira</td>
+                    <td>House</td>
+                </tr>
+                <tr>
+                    <td>Lira</td>
+                    <td>Car</td>
+                </tr>
+                <tr>
+                    <td>Dira</td>
+                    <td>Tree</td>
+                </tr>
+                <tr>
+                    <td>Tora</td>
+                    <td>Sky</td>
+                </tr>
+                <tr>
+                    <td>Fira</td>
+                    <td>Fire</td>
+                </tr>
+                <tr>
+                    <td>Wira</td>
+                    <td>Wind</td>
+                </tr>
+                <tr>
+                    <td>Rira</td>
+                    <td>Rain</td>
+                </tr>
+                <tr>
+                    <td>Kira</td>
+                    <td>Mountain</td>
+                </tr>
+                <tr>
+                    <td>Jira</td>
+                    <td>River</td>
+                </tr>
+                <tr>
+                    <td>Vira</td>
+                    <td>Forest</td>
+                </tr>
+                <tr>
+                    <td>Ora</td>
+                    <td>Ocean</td>
+                </tr>
+                <tr>
+                    <td>Xira</td>
+                    <td>Star</td>
+                </tr>
+                <tr>
+                    <td>Yira</td>
+                    <td>Moon</td>
+                </tr>
+                <tr>
+                    <td>Zora</td>
+                    <td>Sun</td>
+                </tr>
+                <tr>
+                    <td>Koru</td>
+                    <td>Earth</td>
+                </tr>
+                <tr>
+                    <td>Shiro</td>
+                    <td>Animal</td>
+                </tr>
+                <tr>
+                    <td>Hiro</td>
+                    <td>Plant</td>
+                </tr>
+                <tr>
+                    <td>Firo</td>
+                    <td>Stone</td>
+                </tr>
+                <tr>
+                    <td>Jiro</td>
+                    <td>Waterfall</td>
+                </tr>
+                <tr>
+                    <td>Loro</td>
+                    <td>Sky</td>
+                </tr>
+                <tr>
+                    <td>Mor</td>
+                    <td>Tree</td>
+                </tr>
+                <tr>
+                    <td>Noro</td>
+                    <td>Earth</td>
+                </tr>
+                <tr>
+                    <td>Por</td>
+                    <td>Wind</td>
+                </tr>
+                <tr>
+                    <td>Sor</td>
+                    <td>Fire</td>
+                </tr>
+                <tr>
+                    <td>Tor</td>
+                    <td>Sun</td>
+                </tr>
+                <tr>
+                    <td>Ura</td>
+                    <td>Moon</td>
+                </tr>
+                <tr>
+                    <td>Vora</td>
+                    <td>Stars</td>
+                </tr>
+                <tr>
+                    <td>Vira</td>
+                    <td>Light</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </table>
+        </div>
     </div>
 
     <script>
@@ -192,84 +294,37 @@
             { word: 'Nira', translation: 'Hate' },
             { word: 'Fara', translation: 'Happy' },
             { word: 'Bira', translation: 'Sad' },
-            { word: 'Zika', translation: 'Friend' },
-            { word: 'Miko', translation: 'Enemy' },
-            { word: 'Tiko', translation: 'Family' },
-            { word: 'Hano', translation: 'Home' },
-            { word: 'Luno', translation: 'Work' },
-            { word: 'Piko', translation: 'School' },
-            { word: 'Fero', translation: 'Music' },
-            { word: 'Kira', translation: 'Book' },
-            { word: 'Vero', translation: 'Game' },
-            { word: 'Mira', translation: 'Tree' },
-            { word: 'Siro', translation: 'Sky' },
-            { word: 'Kuno', translation: 'Sun' },
-            { word: 'Funo', translation: 'Moon' },
-            { word: 'Viri', translation: 'Star' },
-            { word: 'Doro', translation: 'City' },
-            { word: 'Tumi', translation: 'Forest' },
-            { word: 'Kiro', translation: 'Mountain' },
-            { word: 'Boro', translation: 'Ocean' },
-            { word: 'Fira', translation: 'River' },
-            { word: 'Pomi', translation: 'Road' },
-            { word: 'Muri', translation: 'Path' },
-            { word: 'Vako', translation: 'Strong' },
-            { word: 'Lumi', translation: 'Weak' },
-            { word: 'Nami', translation: 'Fast' },
-            { word: 'Sami', translation: 'Slow' },
-            { word: 'Boro', translation: 'Quiet' },
-            { word: 'Koro', translation: 'Loud' },
-            { word: 'Lika', translation: 'Talk' },
-            { word: 'Vika', translation: 'Listen' },
-            { word: 'Mira', translation: 'Read' },
-            { word: 'Nira', translation: 'Write' },
-            { word: 'Siro', translation: 'Watch' },
-            { word: 'Viro', translation: 'Play' },
-            { word: 'Riko', translation: 'Run' },
-            { word: 'Filo', translation: 'Sit' },
-            { word: 'Tira', translation: 'Stand' },
-            { word: 'Kuno', translation: 'Eat' },
-            { word: 'Melo', translation: 'Drink' },
-            { word: 'Tomi', translation: 'Jump' },
-            { word: 'Piro', translation: 'Work (action)' },
-            { word: 'Miri', translation: 'Rest' },
-            { word: 'Nuri', translation: 'Move' },
-            { word: 'Tomi', translation: 'Stop' },
-            { word: 'Daro', translation: 'Start' },
-            { word: 'Malo', translation: 'Finish' },
-            { word: 'Bara', translation: 'Good' },
-            { word: 'Sana', translation: 'Bad' },
-            { word: 'Lumi', translation: 'Hot' },
-            { word: 'Luna', translation: 'Cold' },
-            { word: 'Fara', translation: 'Big' },
-            { word: 'Mira', translation: 'Small' },
-            { word: 'Pira', translation: 'Heavy' },
+            { word: 'Cora', translation: 'Friend' },
+            { word: 'Pira', translation: 'Enemy' },
+            { word: 'Gira', translation: 'House' },
+            { word: 'Lira', translation: 'Car' },
+            { word: 'Dira', translation: 'Tree' },
+            { word: 'Tora', translation: 'Sky' },
+            { word: 'Fira', translation: 'Fire' },
+            { word: 'Wira', translation: 'Wind' },
+            { word: 'Rira', translation: 'Rain' },
+            { word: 'Kira', translation: 'Mountain' },
+            { word: 'Jira', translation: 'River' },
+            { word: 'Vira', translation: 'Forest' },
+            { word: 'Ora', translation: 'Ocean' },
+            { word: 'Xira', translation: 'Star' },
+            { word: 'Yira', translation: 'Moon' },
+            { word: 'Zora', translation: 'Sun' },
+            { word: 'Koru', translation: 'Earth' },
+            { word: 'Shiro', translation: 'Animal' },
+            { word: 'Hiro', translation: 'Plant' },
+            { word: 'Firo', translation: 'Stone' },
+            { word: 'Jiro', translation: 'Waterfall' },
+            { word: 'Loro', translation: 'Sky' },
+            { word: 'Mor', translation: 'Tree' },
+            { word: 'Noro', translation: 'Earth' },
+            { word: 'Por', translation: 'Wind' },
+            { word: 'Sor', translation: 'Fire' },
+            { word: 'Tor', translation: 'Sun' },
+            { word: 'Ura', translation: 'Moon' },
+            { word: 'Vora', translation: 'Stars' },
             { word: 'Vira', translation: 'Light' },
-            { word: 'Biro', translation: 'Beautiful' },
-            { word: 'Kira', translation: 'Ugly' },
-            { word: 'Sira', translation: 'Smart' },
-            { word: 'Tara', translation: 'Dumb' },
-            { word: 'Zera', translation: 'Young' },
-            { word: 'Ziro', translation: 'Old' },
-            { word: 'Kari', translation: 'Morning' },
-            { word: 'Zuri', translation: 'Night' },
-            { word: 'Fori', translation: 'Time' },
-            { word: 'Nori', translation: 'Day' },
-            { word: 'Turi', translation: 'Month' },
-            { word: 'Zuri', translation: 'Year' },
-            { word: 'Suri', translation: 'Now' },
-            { word: 'Lori', translation: 'Later' },
-            { word: 'Fira', translation: 'Always' },
-            { word: 'Mori', translation: 'Never' },
-            { word: 'Viro', translation: 'Maybe' },
-            { word: 'Sora', translation: 'Goodnight' },
-            { word: 'Mira', translation: 'Good morning' },
-            { word: 'Ziro', translation: 'Thank you' },
-            { word: 'Liko', translation: 'Excuse me' },
-            { word: 'Boro', translation: 'Sorry' },
-            { word: 'Viro', translation: 'Help' },
-            { word: 'Miri', translation: 'Stop' },
-            { word: 'Lira', translation: 'Go' }
+            // Add more rows if needed
         ];
         
         let currentWordIndex = 0;
