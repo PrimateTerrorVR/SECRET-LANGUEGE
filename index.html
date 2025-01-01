@@ -3,244 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Word List Game</title>
-  <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+  <title>Made-Up Words Learning</title>
   <style>
-    /* General styling */
     body {
-      font-family: 'Titan One', sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-    }
-
-    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #6a11cb, #2575fc); /* colorful background */
+      color: white;
       text-align: center;
-      background-color: #4CAF50;
-      color: white;
-      padding: 20px;
+      flex-direction: column;
     }
 
-    header button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
+    h1 {
+      font-family: 'Cursive', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
     }
 
-    header button:hover {
-      background-color: #45a049;
-    }
-
-    /* Word list container */
-    #word-list-container {
+    .words-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(3, 1fr); /* 3 words per row */
+      grid-gap: 15px;
       padding: 20px;
-      margin: 0;
-      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .word-item {
-      background-color: #fff;
-      padding: 8px;
-      border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      font-size: 14px;
-      line-height: 1.5;
+    .word-pair {
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px;
+      border-radius: 8px;
+      width: 200px;
     }
 
-    .word-item span {
-      display: block;
+    .word-pair p {
+      margin: 5px 0;
+      font-family: 'Courier New', Courier, monospace;
     }
 
-    /* Game container (hidden for now) */
-    #game-container {
-      display: none;
-      margin: 20px;
-    }
-
-    /* Print-specific styles */
     @media print {
-      /* Hide game container and buttons for print */
-      #game-container, header button {
-        display: none;
+      body {
+        background: none;
+        color: black;
       }
+      .words-container {
+        display: block;
+        padding: 0;
+      }
+      .word-pair {
+        width: auto;
+        font-size: 1rem;
+        background: none;
+        margin-bottom: 10px;
+      }
+      h1 {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+    }
 
-      /* Word list container for print */
-      #word-list-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Flexible grid columns */
-        gap: 8px;
+    /* Small screen adjustments */
+    @media (max-width: 600px) {
+      .word-pair {
         width: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      .word-item {
-        font-size: 12px;
-        line-height: 1.2;
-        padding: 6px;
-      }
-
-      /* Avoid unnecessary margins and padding for print */
-      body, .word-item {
-        margin: 0;
-        padding: 0;
-      }
-
-      /* Ensure everything fits on one page */
-      @page {
-        size: auto;
-        margin: 0;
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>Word List Game</h1>
-    <button onclick="printWordList()">Print Word List</button>
-  </header>
-
-  <main>
-    <!-- Word List Section -->
-    <div id="word-list-container">
-      <!-- The word list will be dynamically populated here -->
-    </div>
-
-    <!-- Game Container (hidden for now) -->
-    <div id="game-container">
-      <h2 id="word-to-translate"></h2>
-      <div id="game-buttons"></div>
-      <div id="result"></div>
-    </div>
-  </main>
-
-  <script>
-    // Define the word list with 100 made-up words
-    const wordList = [
-      { english: 'hello', learnlang: 'zorkun' },
-      { english: 'world', learnlang: 'floktar' },
-      { english: 'good', learnlang: 'trewta' },
-      { english: 'bad', learnlang: 'zupat' },
-      { english: 'yes', learnlang: 'kwelok' },
-      { english: 'no', learnlang: 'lahzur' },
-      { english: 'please', learnlang: 'kaffon' },
-      { english: 'thank you', learnlang: 'xolpa' },
-      { english: 'sorry', learnlang: 'bruxta' },
-      { english: 'friend', learnlang: 'surtim' },
-      { english: 'family', learnlang: 'vintur' },
-      { english: 'house', learnlang: 'merkat' },
-      { english: 'food', learnlang: 'gonka' },
-      { english: 'water', learnlang: 'nexar' },
-      { english: 'book', learnlang: 'volkyr' },
-      { english: 'pen', learnlang: 'pelzam' },
-      { english: 'paper', learnlang: 'quoltra' },
-      { english: 'pencil', learnlang: 'trazna' },
-      { english: 'computer', learnlang: 'zalfuk' },
-      { english: 'phone', learnlang: 'brazik' },
-      { english: 'internet', learnlang: 'xifol' },
-      { english: 'music', learnlang: 'wimtar' },
-      { english: 'song', learnlang: 'rakon' },
-      { english: 'dance', learnlang: 'trilat' },
-      { english: 'laugh', learnlang: 'grolt' },
-      { english: 'cry', learnlang: 'miptor' },
-      { english: 'smile', learnlang: 'gandik' },
-      { english: 'speak', learnlang: 'valik' },
-      { english: 'listen', learnlang: 'grator' },
-      { english: 'see', learnlang: 'blorik' },
-      { english: 'hear', learnlang: 'jarnik' },
-      { english: 'feel', learnlang: 'ploft' },
-      { english: 'think', learnlang: 'kamzik' },
-      { english: 'know', learnlang: 'trefon' },
-      { english: 'understand', learnlang: 'balkut' },
-      { english: 'learn', learnlang: 'kamto' },
-      { english: 'teach', learnlang: 'sarnix' },
-      { english: 'study', learnlang: 'vritol' },
-      { english: 'work', learnlang: 'grintor' },
-      { english: 'play', learnlang: 'galtik' },
-      { english: 'run', learnlang: 'brakol' },
-      { english: 'jump', learnlang: 'daffar' },
-      { english: 'sit', learnlang: 'soktar' },
-      { english: 'stand', learnlang: 'vunkar' },
-      { english: 'walk', learnlang: 'yoltan' },
-      { english: 'sleep', learnlang: 'miplar' },
-      { english: 'wake', learnlang: 'zator' },
-      { english: 'wake up', learnlang: 'gomtar' },
-      { english: 'goodbye', learnlang: 'frokas' },
-      { english: 'morning', learnlang: 'vlorin' },
-      { english: 'night', learnlang: 'troska' },
-      { english: 'sun', learnlang: 'lytrik' },
-      { english: 'moon', learnlang: 'yoplan' },
-      { english: 'star', learnlang: 'volrik' },
-      { english: 'cloud', learnlang: 'melkor' },
-      { english: 'rain', learnlang: 'klonak' },
-      { english: 'snow', learnlang: 'glakto' },
-      { english: 'wind', learnlang: 'vritok' },
-      { english: 'storm', learnlang: 'miphal' },
-      { english: 'day', learnlang: 'korvik' },
-      { english: 'week', learnlang: 'jerma' },
-      { english: 'month', learnlang: 'talmok' },
-      { english: 'year', learnlang: 'krovik' },
-      { english: 'clock', learnlang: 'zelmok' },
-      { english: 'watch', learnlang: 'trozak' },
-      { english: 'calendar', learnlang: 'kivrat' },
-      { english: 'today', learnlang: 'fraltor' },
-      { english: 'tomorrow', learnlang: 'trakon' },
-      { english: 'yesterday', learnlang: 'plinor' },
-      { english: 'morning', learnlang: 'vurto' },
-      { english: 'afternoon', learnlang: 'krafar' },
-      { english: 'evening', learnlang: 'soltra' },
-      { english: 'breakfast', learnlang: 'frungar' },
-      { english: 'lunch', learnlang: 'harkon' },
-      { english: 'dinner', learnlang: 'rinkan' },
-      { english: 'meal', learnlang: 'totik' },
-      { english: 'dessert', learnlang: 'plenta' },
-      { english: 'fruit', learnlang: 'kalti' },
-      { english: 'vegetable', learnlang: 'prota' },
-      { english: 'meat', learnlang: 'nator' },
-      { english: 'fish', learnlang: 'gralon' },
-      { english: 'bread', learnlang: 'tarin' },
-      { english: 'cake', learnlang: 'peltra' },
-      { english: 'cookie', learnlang: 'lurkos' },
-      { english: 'cheese', learnlang: 'kopta' },
-      { english: 'butter', learnlang: 'seltar' },
-      { english: 'milk', learnlang: 'brittar' },
-      { english: 'egg', learnlang: 'blorik' },
-      { english: 'tea', learnlang: 'verlo' },
-      { english: 'coffee', learnlang: 'turpak' },
-      { english: 'juice', learnlang: 'zalen' },
-      { english: 'watermelon', learnlang: 'palto' },
-      { english: 'apple', learnlang: 'trinnok' },
-      { english: 'banana', learnlang: 'fripkik' },
-      { english: 'orange', learnlang: 'trangli' },
-      { english: 'grape', learnlang: 'krenza' },
-      { english: 'pear', learnlang: 'pozar' },
-      { english: 'pineapple', learnlang: 'hozzar' },
-      { english: 'strawberry', learnlang: 'grafak' },
-      { english: 'cherry', learnlang: 'plovza' },
-      { english: 'water', learnlang: 'rava' }
-    ];
-
-    // Function to generate the word list display
-    const wordListContainer = document.getElementById("word-list-container");
-    wordList.forEach(word => {
-      const wordItem = document.createElement("div");
-      wordItem.classList.add("word-item");
-      wordItem.innerHTML = `<span>${word.english}</span> <span>➡</span> <span>${word.learnlang}</span>`;
-      wordListContainer.appendChild(wordItem);
-    });
-
-    // Print function
-    function printWordList() {
-      window.print();
-    }
-  </script>
-
+  <h1>Learn Made-Up Words</h1>
+  <div class="words-container">
+    <div class="word-pair"><p><strong>Hello</strong> = Virika</p><p><strong>Bye</strong> = Gongor</p><p><strong>Here</strong> = Gonish</p></div>
+    <div class="word-pair"><p><strong>Good</strong> = Kivra</p><p><strong>Night</strong> = Zorvix</p><p><strong>Food</strong> = Ploptra</p></div>
+    <div class="word-pair"><p><strong>Water</strong> = Swilra</p><p><strong>Fire</strong> = Blavorn</p><p><strong>Air</strong> = Zynox</p></div>
+    <div class="word-pair"><p><strong>Happy</strong> = Frallix</p><p><strong>Sad</strong> = Golver</p><p><strong>Friend</strong> = Tymos</p></div>
+    <div class="word-pair"><p><strong>Love</strong> = Amira</p><p><strong>Peace</strong> = Rilva</p><p><strong>Journey</strong> = Quolak</p></div>
+    <div class="word-pair"><p><strong>Sky</strong> = Poltra</p><p><strong>Earth</strong> = Vornok</p><p><strong>Star</strong> = Lulara</p></div>
+    <div class="word-pair"><p><strong>Dream</strong> = Yatros</p><p><strong>Sun</strong> = Voora</p><p><strong>Moon</strong> = Belva</p></div>
+    <div class="word-pair"><p><strong>Ocean</strong> = Loria</p><p><strong>Mountain</strong> = Rolvix</p><p><strong>Forest</strong> = Troga</p></div>
+    <div class="word-pair"><p><strong>City</strong> = Zemra</p><p><strong>Country</strong> = Soltaz</p><p><strong>Village</strong> = Aluma</p></div>
+    <div class="word-pair"><p><strong>River</strong> = Vysora</p><p><strong>Lake</strong> = Hersta</p><p><strong>Beach</strong> = Moza</p></div>
+    <div class="word-pair"><p><strong>Tree</strong> = Focra</p><p><strong>Flower</strong> = Ziphra</p><p><strong>Grass</strong> = Huala</p></div>
+    <div class="word-pair"><p><strong>Sunrise</strong> = Ovali</p><p><strong>Sunset</strong> = Zorba</p><p><strong>Cloud</strong> = Frina</p></div>
+    <div class="word-pair"><p><strong>Snow</strong> = Sylka</p><p><strong>Rain</strong> = Triva</p><p><strong>Wind</strong> = Froska</p></div>
+    <div class="word-pair"><p><strong>Light</strong> = Viro</p><p><strong>Dark</strong> = Galtha</p><p><strong>Shadow</strong> = Frullis</p></div>
+    <div class="word-pair"><p><strong>Firefly</strong> = Blinka</p><p><strong>Thunder</strong> = Rumor</p><p><strong>Lightning</strong> = Clyra</p></div>
+    <div class="word-pair"><p><strong>Heart</strong> = Pynol</p><p><strong>Brain</strong> = Grover</p><p><strong>Body</strong> = Zynix</p></div>
+    <div class="word-pair"><p><strong>Strength</strong> = Tarkos</p><p><strong>Speed</strong> = Vexar</p><p><strong>Wisdom</strong> = Lirna</p></div>
+    <div class="word-pair"><p><strong>Courage</strong> = Valis</p><p><strong>Fear</strong> = Grolin</p><p><strong>Hope</strong> = Mavok</p></div>
+    <div class="word-pair"><p><strong>Memory</strong> = Trilos</p><p><strong>Time</strong> = Jorika</p><p><strong>Future</strong> = Nalvor</p></div>
+    <div class="word-pair"><p><strong>Past</strong> = Luron</p><p><strong>Present</strong> = Aylor</p><p><strong>Moment</strong> = Xirna</p></div>
+    <div class="word-pair"><p><strong>Door</strong> = Phexra</p><p><strong>Window</strong> = Seron</p><p><strong>Wall</strong> = Xylra</p></div>
+    <div class="word-pair"><p><strong>Lightbulb</strong> = Forno</p><p><strong>Switch</strong> = Cylor</p><p><strong>Plug</strong> = Klira</p></div>
+    <div class="word-pair"><p><strong>Chair</strong> = Luvix</p><p><strong>Table</strong> = Vantor</p><p><strong>Cup</strong> = Meza</p></div>
+    <div class="word-pair"><p><strong>Phone</strong> = Arlo</p><p><strong>Computer</strong> = Trikeo</p><p><strong>Book</strong> = Salkra</p></div>
+    <div class="word-pair"><p><strong>Pen</strong> = Unso</p><p><strong>Paper</strong> = Vortha</p><p><strong>Notebook</strong> = Vexra</p></div>
+    <!-- Add more word pairs to complete the 100 words -->
+  </div>
 </body>
 </html>
