@@ -61,10 +61,11 @@
       font-family: 'Courier New', Courier, monospace;
     }
 
+    /* For printing */
     @media print {
       body {
-        background: linear-gradient(to right, #6a11cb, #2575fc); /* keep background gradient */
-        color: white; /* keep text color white */
+        background: none; /* Remove background for print */
+        color: black; /* Change text color to black for print */
         padding: 0;
       }
 
@@ -74,14 +75,16 @@
         grid-gap: 15px;
         padding: 20px;
         margin: 0;
+        max-width: 100%; /* Full width for printing */
+        max-height: none; /* Allow content to use full height */
       }
 
       .word-pair {
         font-size: 1.2rem;
-        background: rgba(255, 255, 255, 0.2); /* keep background */
+        background: none; /* Remove background for print */
         padding: 10px;
         border-radius: 8px;
-        width: 200px;
+        width: 100%; /* Ensure words take full width on page */
       }
 
       .word-pair p {
@@ -89,9 +92,14 @@
         font-family: 'Courier New', Courier, monospace;
       }
 
-      /* Remove the button for printing */
+      /* Remove print button and unnecessary elements */
       .print-btn {
         display: none;
+      }
+
+      /* Make sure the content fits on the page */
+      .words-container {
+        page-break-before: always;
       }
     }
 
@@ -108,6 +116,7 @@
   <h1>Learn Made-Up Words</h1>
   <button class="print-btn" onclick="window.print()">Print</button>
   <div class="words-container">
+    <!-- Each word-pair includes a made-up word and its English translation -->
     <div class="word-pair"><p><strong>Hello</strong> = Virika</p><p><strong>Bye</strong> = Gongor</p><p><strong>Here</strong> = Gonish</p></div>
     <div class="word-pair"><p><strong>Good</strong> = Kivra</p><p><strong>Night</strong> = Zorvix</p><p><strong>Food</strong> = Ploptra</p></div>
     <div class="word-pair"><p><strong>Water</strong> = Swilra</p><p><strong>Fire</strong> = Blavorn</p><p><strong>Air</strong> = Zynox</p></div>
