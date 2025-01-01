@@ -97,9 +97,14 @@
         display: none;
       }
 
-      /* Make sure the content fits on the page */
+      /* Ensure words are spread across two pages */
       .words-container {
         page-break-before: always;
+      }
+      
+      /* Force content to fit on two pages */
+      .words-container {
+        page-break-after: always;
       }
     }
 
