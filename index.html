@@ -48,6 +48,7 @@
       padding: 10px 20px;
       cursor: pointer;
       font-size: 16px;
+      margin: 10px;
     }
 
     button:hover {
@@ -74,6 +75,32 @@
       text-align: center;
       margin-top: 40px;
       font-size: 14px;
+    }
+
+    #game-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #word-to-translate {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .game-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .game-buttons button {
+      font-size: 18px;
+      padding: 10px 20px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
     }
   </style>
 </head>
@@ -116,6 +143,12 @@
     <h2>Mini-Games</h2>
     <p>Test your knowledge of LearnLang through fun mini-games!</p>
     <button onclick="startMiniGame()">Play Game</button>
+
+    <div id="game-container" style="display:none;">
+      <div id="word-to-translate">Translate: </div>
+      <div class="game-buttons" id="game-buttons"></div>
+      <div id="result"></div>
+    </div>
   </section>
 
   <footer>
@@ -193,26 +226,13 @@
       { english: 'sentence', learnlang: 'torna' },
       { english: 'question', learnlang: 'kruva' },
       { english: 'answer', learnlang: 'zorna' },
-      { english: 'yes', learnlang: 'kafta' },
-      { english: 'no', learnlang: 'gratha' },
       { english: 'why', learnlang: 'skrava' },
       { english: 'how', learnlang: 'phira' },
       { english: 'when', learnlang: 'korta' },
       { english: 'where', learnlang: 'svara' },
       { english: 'who', learnlang: 'drava' },
       { english: 'what', learnlang: 'varna' },
-      { english: 'which', learnlang: 'dirka' },
-      { english: 'hello', learnlang: 'blina' },
-      { english: 'goodbye', learnlang: 'virka' },
-      { english: 'please', learnlang: 'triha' },
-      { english: 'thank you', learnlang: 'borka' },
-      { english: 'sorry', learnlang: 'mira' },
-      { english: 'excuse me', learnlang: 'xira' },
-      { english: 'welcome', learnlang: 'faera' },
-      { english: 'yes', learnlang: 'vorka' },
-      { english: 'no', learnlang: 'sora' },
-      { english: 'hello', learnlang: 'treka' },
-      { english: 'goodbye', learnlang: 'gira' }
+      { english: 'which', learnlang: 'dirka' }
     ];
 
     // Function to populate the word list table
@@ -237,19 +257,53 @@
       window.print();
     }
 
-    // Function to start learning
-    function startLearning() {
-      alert('Let\'s start learning some words!');
-    }
-
-    // Function to start the mini-game
+    // Mini-game functionality
     function startMiniGame() {
-      alert('Mini-game starts here!');
-      // You can add game logic here
+      document.getElementById('game-container').style.display = 'block';
+      startNextRound();
     }
 
-    // Populate the word list on page load
-    window.onload = populateWordList;
+    let currentWordIndex = 0;
+
+    function startNextRound() {
+      const word = wordList[currentWordIndex];
+      document.getElementById('word-to-translate').textContent = `Translate: ${word.english}`;
+      const gameButtons = document.getElementById('game-buttons');
+      gameButtons.innerHTML = ''; // Clear previous buttons
+
+      // Create answer buttons dynamically
+      wordList.forEach((item) => {
+        const button = document.createElement('button');
+        button.textContent = item.learnlang;
+        button.onclick = () => checkAnswer(item.learnlang);
+        gameButtons.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selectedAnswer) {
+      const correctAnswer = wordList[currentWordIndex].learnlang;
+      const resultDiv = document.getElementById('result');
+
+      if (selectedAnswer === correctAnswer) {
+        resultDiv.textContent = 'Correct!';
+      } else {
+        resultDiv.textContent = 'Incorrect. Try again!';
+      }
+
+      // Move to the next word after a short delay
+      setTimeout(() => {
+        currentWordIndex++;
+        if (currentWordIndex < wordList.length) {
+          startNextRound();
+          resultDiv.textContent = '';
+        } else {
+          resultDiv.textContent = 'Game Over! You completed the quiz!';
+        }
+      }, 1000);
+    }
+
+    // Initialize the page
+    populateWordList();
   </script>
 </body>
 </html>
