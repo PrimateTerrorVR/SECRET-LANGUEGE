@@ -1,370 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Learning Game - Duolingo Style</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            width: 80%;
-            max-width: 600px;
-            text-align: center;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
-        h1 {
-            color: #1a73e8;
-            margin-bottom: 20px;
-        }
-        .game-container {
-            margin-top: 20px;
-        }
-        #game-word {
-            font-size: 2em;
-            font-weight: bold;
-            color: #333;
-        }
-        input {
-            padding: 10px;
-            font-size: 1.2em;
-            width: 100%;
-            margin-top: 10px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0c59c1;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 1.2em;
-        }
-        #answer-key {
-            margin-top: 30px;
-            font-size: 1em;
-            color: #555;
-        }
-        .answer-key-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        .answer-key-table th, .answer-key-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        .answer-key-table th {
-            background-color: #f4f4f4;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnLang - Your Made-up Language</title>
+  <style>
+    /* Reset and basic styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    section {
+      margin: 20px 0;
+    }
+
+    .word-table table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .word-table th, .word-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>LearnLang</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#word-list">Word List</a>
+      <a href="#games">Mini-Games</a>
+    </nav>
+  </header>
 
-    <div class="container">
-        <h1>Learn the Language Game</h1>
-        <div class="game-container">
-            <p>Translate the word:</p>
-            <p id="game-word">Zelo</p>
-            <input type="text" id="answer" placeholder="Type your answer here" />
-            <button id="submit-answer">Submit</button>
-            <p id="result"></p>
-        </div>
-        <div id="answer-key">
-            <h3>Answer Key</h3>
-            <table class="answer-key-table">
-                <tr>
-                    <th>Made-up Word</th>
-                    <th>Translation</th>
-                </tr>
-                <tr>
-                    <td>Zelo</td>
-                    <td>Hello</td>
-                </tr>
-                <tr>
-                    <td>Zira</td>
-                    <td>Goodbye</td>
-                </tr>
-                <tr>
-                    <td>Tari</td>
-                    <td>Please</td>
-                </tr>
-                <tr>
-                    <td>Mira</td>
-                    <td>Thank you</td>
-                </tr>
-                <tr>
-                    <td>Ralu</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>Nalo</td>
-                    <td>No</td>
-                </tr>
-                <tr>
-                    <td>Vero</td>
-                    <td>Water</td>
-                </tr>
-                <tr>
-                    <td>Luno</td>
-                    <td>Food</td>
-                </tr>
-                <tr>
-                    <td>Pelo</td>
-                    <td>Sleep</td>
-                </tr>
-                <tr>
-                    <td>Sira</td>
-                    <td>Love</td>
-                </tr>
-                <tr>
-                    <td>Nira</td>
-                    <td>Hate</td>
-                </tr>
-                <tr>
-                    <td>Fara</td>
-                    <td>Happy</td>
-                </tr>
-                <tr>
-                    <td>Bira</td>
-                    <td>Sad</td>
-                </tr>
-                <tr>
-                    <td>Cora</td>
-                    <td>Friend</td>
-                </tr>
-                <tr>
-                    <td>Pira</td>
-                    <td>Enemy</td>
-                </tr>
-                <tr>
-                    <td>Gira</td>
-                    <td>House</td>
-                </tr>
-                <tr>
-                    <td>Lira</td>
-                    <td>Car</td>
-                </tr>
-                <tr>
-                    <td>Dira</td>
-                    <td>Tree</td>
-                </tr>
-                <tr>
-                    <td>Tora</td>
-                    <td>Sky</td>
-                </tr>
-                <tr>
-                    <td>Fira</td>
-                    <td>Fire</td>
-                </tr>
-                <tr>
-                    <td>Wira</td>
-                    <td>Wind</td>
-                </tr>
-                <tr>
-                    <td>Rira</td>
-                    <td>Rain</td>
-                </tr>
-                <tr>
-                    <td>Kira</td>
-                    <td>Mountain</td>
-                </tr>
-                <tr>
-                    <td>Jira</td>
-                    <td>River</td>
-                </tr>
-                <tr>
-                    <td>Vira</td>
-                    <td>Forest</td>
-                </tr>
-                <tr>
-                    <td>Ora</td>
-                    <td>Ocean</td>
-                </tr>
-                <tr>
-                    <td>Xira</td>
-                    <td>Star</td>
-                </tr>
-                <tr>
-                    <td>Yira</td>
-                    <td>Moon</td>
-                </tr>
-                <tr>
-                    <td>Zora</td>
-                    <td>Sun</td>
-                </tr>
-                <tr>
-                    <td>Koru</td>
-                    <td>Earth</td>
-                </tr>
-                <tr>
-                    <td>Shiro</td>
-                    <td>Animal</td>
-                </tr>
-                <tr>
-                    <td>Hiro</td>
-                    <td>Plant</td>
-                </tr>
-                <tr>
-                    <td>Firo</td>
-                    <td>Stone</td>
-                </tr>
-                <tr>
-                    <td>Jiro</td>
-                    <td>Waterfall</td>
-                </tr>
-                <tr>
-                    <td>Loro</td>
-                    <td>Sky</td>
-                </tr>
-                <tr>
-                    <td>Mor</td>
-                    <td>Tree</td>
-                </tr>
-                <tr>
-                    <td>Noro</td>
-                    <td>Earth</td>
-                </tr>
-                <tr>
-                    <td>Por</td>
-                    <td>Wind</td>
-                </tr>
-                <tr>
-                    <td>Sor</td>
-                    <td>Fire</td>
-                </tr>
-                <tr>
-                    <td>Tor</td>
-                    <td>Sun</td>
-                </tr>
-                <tr>
-                    <td>Ura</td>
-                    <td>Moon</td>
-                </tr>
-                <tr>
-                    <td>Vora</td>
-                    <td>Stars</td>
-                </tr>
-                <tr>
-                    <td>Vira</td>
-                    <td>Light</td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </table>
-        </div>
+  <section id="home">
+    <h2>Welcome to LearnLang!</h2>
+    <p>Learn a new language that is easy to start, but hard to master. Let's begin with a few words!</p>
+    <button onclick="startLearning()">Start Learning</button>
+  </section>
+
+  <section id="word-list">
+    <h2>100 Common Words</h2>
+    <p>Click below to view and print the word list.</p>
+    <button onclick="printWordList()">Print Word List</button>
+    <div class="word-table">
+      <table id="words">
+        <thead>
+          <tr>
+            <th>English</th>
+            <th>LearnLang</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Word list will be dynamically populated here -->
+        </tbody>
+      </table>
     </div>
+  </section>
 
-    <script>
-        const dictionary = [
-            { word: 'Zelo', translation: 'Hello' },
-            { word: 'Zira', translation: 'Goodbye' },
-            { word: 'Tari', translation: 'Please' },
-            { word: 'Mira', translation: 'Thank you' },
-            { word: 'Ralu', translation: 'Yes' },
-            { word: 'Nalo', translation: 'No' },
-            { word: 'Vero', translation: 'Water' },
-            { word: 'Luno', translation: 'Food' },
-            { word: 'Pelo', translation: 'Sleep' },
-            { word: 'Sira', translation: 'Love' },
-            { word: 'Nira', translation: 'Hate' },
-            { word: 'Fara', translation: 'Happy' },
-            { word: 'Bira', translation: 'Sad' },
-            { word: 'Cora', translation: 'Friend' },
-            { word: 'Pira', translation: 'Enemy' },
-            { word: 'Gira', translation: 'House' },
-            { word: 'Lira', translation: 'Car' },
-            { word: 'Dira', translation: 'Tree' },
-            { word: 'Tora', translation: 'Sky' },
-            { word: 'Fira', translation: 'Fire' },
-            { word: 'Wira', translation: 'Wind' },
-            { word: 'Rira', translation: 'Rain' },
-            { word: 'Kira', translation: 'Mountain' },
-            { word: 'Jira', translation: 'River' },
-            { word: 'Vira', translation: 'Forest' },
-            { word: 'Ora', translation: 'Ocean' },
-            { word: 'Xira', translation: 'Star' },
-            { word: 'Yira', translation: 'Moon' },
-            { word: 'Zora', translation: 'Sun' },
-            { word: 'Koru', translation: 'Earth' },
-            { word: 'Shiro', translation: 'Animal' },
-            { word: 'Hiro', translation: 'Plant' },
-            { word: 'Firo', translation: 'Stone' },
-            { word: 'Jiro', translation: 'Waterfall' },
-            { word: 'Loro', translation: 'Sky' },
-            { word: 'Mor', translation: 'Tree' },
-            { word: 'Noro', translation: 'Earth' },
-            { word: 'Por', translation: 'Wind' },
-            { word: 'Sor', translation: 'Fire' },
-            { word: 'Tor', translation: 'Sun' },
-            { word: 'Ura', translation: 'Moon' },
-            { word: 'Vora', translation: 'Stars' },
-            { word: 'Vira', translation: 'Light' },
-            // Add more rows if needed
-        ];
-        
-        let currentWordIndex = 0;
+  <section id="games">
+    <h2>Mini-Games</h2>
+    <p>Test your knowledge of LearnLang through fun mini-games!</p>
+    <button onclick="startMiniGame()">Play Game</button>
+  </section>
 
-        // Function to start the game
-        function startGame() {
-            const gameWord = document.getElementById('game-word');
-            const answerInput = document.getElementById('answer');
-            const resultMessage = document.getElementById('result');
-            
-            gameWord.textContent = dictionary[currentWordIndex].word;
-            answerInput.value = '';
-            resultMessage.textContent = '';
-        }
+  <footer>
+    <p>&copy; 2024 LearnLang. All rights reserved.</p>
+  </footer>
 
-        // Handle answer submission
-        document.getElementById('submit-answer').addEventListener('click', () => {
-            const answerInput = document.getElementById('answer');
-            const resultMessage = document.getElementById('result');
-            
-            const userAnswer = answerInput.value.trim().toLowerCase();
-            const correctAnswer = dictionary[currentWordIndex].translation.toLowerCase();
+  <script>
+    // Word List (100 common English words and their made-up language equivalents)
+    const wordList = [
+      { english: 'hello', learnlang: 'grithar' },
+      { english: 'goodbye', learnlang: 'joraka' },
+      { english: 'please', learnlang: 'zuntri' },
+      { english: 'thank you', learnlang: 'eslura' },
+      { english: 'yes', learnlang: 'tika' },
+      { english: 'no', learnlang: 'grona' },
+      { english: 'man', learnlang: 'lormik' },
+      { english: 'woman', learnlang: 'serivka' },
+      { english: 'child', learnlang: 'nuvko' },
+      { english: 'friend', learnlang: 'beka' },
+      { english: 'love', learnlang: 'garnu' },
+      { english: 'happy', learnlang: 'meri' },
+      { english: 'sad', learnlang: 'turko' },
+      { english: 'good', learnlang: 'zota' },
+      { english: 'bad', learnlang: 'valka' },
+      { english: 'morning', learnlang: 'drevon' },
+      { english: 'night', learnlang: 'selora' },
+      { english: 'today', learnlang: 'torni' },
+      { english: 'tomorrow', learnlang: 'dilra' },
+      { english: 'yesterday', learnlang: 'vokta' },
+      { english: 'eat', learnlang: 'ritno' },
+      { english: 'drink', learnlang: 'kenra' },
+      { english: 'water', learnlang: 'melda' },
+      { english: 'food', learnlang: 'gimsa' },
+      { english: 'house', learnlang: 'antra' },
+      { english: 'school', learnlang: 'gravit' },
+      { english: 'car', learnlang: 'yournik' },
+      { english: 'bike', learnlang: 'talra' },
+      { english: 'city', learnlang: 'garba' },
+      { english: 'country', learnlang: 'soltik' },
+      { english: 'mountain', learnlang: 'sarve' },
+      { english: 'sea', learnlang: 'ishta' },
+      { english: 'sun', learnlang: 'orva' },
+      { english: 'moon', learnlang: 'ivra' },
+      { english: 'star', learnlang: 'livra' },
+      { english: 'sky', learnlang: 'zornik' },
+      { english: 'earth', learnlang: 'kali' },
+      { english: 'air', learnlang: 'phara' },
+      { english: 'fire', learnlang: 'drava' },
+      { english: 'earth', learnlang: 'korma' },
+      { english: 'wind', learnlang: 'wova' },
+      { english: 'snow', learnlang: 'visha' },
+      { english: 'rain', learnlang: 'mova' },
+      { english: 'cloud', learnlang: 'hita' },
+      { english: 'storm', learnlang: 'lora' },
+      { english: 'book', learnlang: 'nora' },
+      { english: 'pen', learnlang: 'svira' },
+      { english: 'paper', learnlang: 'sivka' },
+      { english: 'computer', learnlang: 'mentra' },
+      { english: 'phone', learnlang: 'kavda' },
+      { english: 'music', learnlang: 'silva' },
+      { english: 'song', learnlang: 'tivra' },
+      { english: 'dance', learnlang: 'rinta' },
+      { english: 'movie', learnlang: 'monra' },
+      { english: 'game', learnlang: 'krima' },
+      { english: 'sport', learnlang: 'tivon' },
+      { english: 'art', learnlang: 'sumra' },
+      { english: 'painting', learnlang: 'hirva' },
+      { english: 'drawing', learnlang: 'narka' },
+      { english: 'sing', learnlang: 'hova' },
+      { english: 'speak', learnlang: 'varka' },
+      { english: 'read', learnlang: 'sevia' },
+      { english: 'write', learnlang: 'lorka' },
+      { english: 'language', learnlang: 'plota' },
+      { english: 'word', learnlang: 'brona' },
+      { english: 'sentence', learnlang: 'torna' },
+      { english: 'question', learnlang: 'kruva' },
+      { english: 'answer', learnlang: 'zorna' },
+      { english: 'yes', learnlang: 'kafta' },
+      { english: 'no', learnlang: 'gratha' },
+      { english: 'why', learnlang: 'skrava' },
+      { english: 'how', learnlang: 'phira' },
+      { english: 'when', learnlang: 'korta' },
+      { english: 'where', learnlang: 'svara' },
+      { english: 'who', learnlang: 'drava' },
+      { english: 'what', learnlang: 'varna' },
+      { english: 'which', learnlang: 'dirka' },
+      { english: 'hello', learnlang: 'blina' },
+      { english: 'goodbye', learnlang: 'virka' },
+      { english: 'please', learnlang: 'triha' },
+      { english: 'thank you', learnlang: 'borka' },
+      { english: 'sorry', learnlang: 'mira' },
+      { english: 'excuse me', learnlang: 'xira' },
+      { english: 'welcome', learnlang: 'faera' },
+      { english: 'yes', learnlang: 'vorka' },
+      { english: 'no', learnlang: 'sora' },
+      { english: 'hello', learnlang: 'treka' },
+      { english: 'goodbye', learnlang: 'gira' }
+    ];
 
-            if (userAnswer === correctAnswer) {
-                resultMessage.textContent = 'Correct!';
-                resultMessage.style.color = 'green';
-                currentWordIndex++;
-                if (currentWordIndex >= dictionary.length) {
-                    resultMessage.textContent = 'You completed the game!';
-                } else {
-                    setTimeout(startGame, 1000);
-                }
-            } else {
-                resultMessage.textContent = 'Incorrect. Try again!';
-                resultMessage.style.color = 'red';
-            }
-        });
+    // Function to populate the word list table
+    function populateWordList() {
+      const wordTable = document.querySelector('#words tbody');
+      wordTable.innerHTML = ''; // Clear any existing rows
 
-        // Initialize the game
-        startGame();
-    </script>
+      wordList.forEach(word => {
+        const row = document.createElement('tr');
+        const englishCell = document.createElement('td');
+        englishCell.textContent = word.english;
+        const learnLangCell = document.createElement('td');
+        learnLangCell.textContent = word.learnlang;
+        row.appendChild(englishCell);
+        row.appendChild(learnLangCell);
+        wordTable.appendChild(row);
+      });
+    }
+
+    // Function to print the word list
+    function printWordList() {
+      window.print();
+    }
+
+    // Function to start learning
+    function startLearning() {
+      alert('Let\'s start learning some words!');
+    }
+
+    // Function to start the mini-game
+    function startMiniGame() {
+      alert('Mini-game starts here!');
+      // You can add game logic here
+    }
+
+    // Populate the word list on page load
+    window.onload = populateWordList;
+  </script>
 </body>
 </html>
