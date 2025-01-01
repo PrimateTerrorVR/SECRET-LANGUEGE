@@ -37,7 +37,7 @@
       font-family: 'Courier New', Courier, monospace;
     }
 
-    /* For printing */
+    /* Print Styles */
     @media print {
       body {
         background: none;
@@ -82,10 +82,21 @@
       .words-container {
         page-break-after: always;
       }
+
+      /* Print color - Set color for printed text */
+      body {
+        color: black;
+      }
+
+      .word-pair {
+        color: black; /* Text color for print */
+        background: white; /* Background color for print */
+      }
     }
   </style>
 </head>
 <body>
+  <button class="print-btn" onclick="window.print()">Print Word List</button>
   <div class="words-container">
     <!-- Each word-pair includes a made-up word and its English translation -->
     <div class="word-pair"><p><strong>Hello</strong> = Virika</p><p><strong>Bye</strong> = Gongor</p><p><strong>Here</strong> = Gonish</p></div>
