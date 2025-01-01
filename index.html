@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -37,19 +37,24 @@
     #word-list-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
-      margin: 20px;
-    }
-
-    table {
+      gap: 8px;
+      padding: 20px;
+      margin: 0;
       width: 100%;
-      border-collapse: collapse;
     }
 
-    table th, table td {
+    .word-item {
+      background-color: #fff;
       padding: 8px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       text-align: center;
-      border: 1px solid #ddd;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .word-item span {
+      display: block;
     }
 
     /* Game container (hidden for now) */
@@ -65,35 +70,26 @@
         display: none;
       }
 
-      /* Ensure the word list is displayed in a grid for printing */
+      /* Word list container for print */
       #word-list-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Flexible grid columns */
-        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Flexible grid columns */
+        gap: 8px;
         width: 100%;
         margin: 0;
         padding: 0;
       }
 
-      table {
-        width: 100%;
-        margin: 0;
-      }
-
-      /* Ensure table cells are aligned and fit in the page */
-      table td {
-        word-wrap: break-word;
+      .word-item {
+        font-size: 12px;
+        line-height: 1.2;
+        padding: 6px;
       }
 
       /* Avoid unnecessary margins and padding for print */
-      body, table, td {
+      body, .word-item {
         margin: 0;
         padding: 0;
-      }
-
-      /* Avoid page breaks between rows */
-      table, tr, td {
-        page-break-inside: avoid;
       }
 
       /* Ensure everything fits on one page */
@@ -114,17 +110,7 @@
   <main>
     <!-- Word List Section -->
     <div id="word-list-container">
-      <table>
-        <thead>
-          <tr>
-            <th>English</th>
-            <th>LearnLang</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- The word list will be dynamically populated here -->
-        </tbody>
-      </table>
+      <!-- The word list will be dynamically populated here -->
     </div>
 
     <!-- Game Container (hidden for now) -->
@@ -136,125 +122,124 @@
   </main>
 
   <script>
-    // Define the word list with 100 words
+    // Define the word list with 100 made-up words
     const wordList = [
-      { english: 'hello', learnlang: 'hola' },
-      { english: 'world', learnlang: 'mundo' },
-      { english: 'good', learnlang: 'bueno' },
-      { english: 'bad', learnlang: 'malo' },
-      { english: 'yes', learnlang: 'sí' },
-      { english: 'no', learnlang: 'no' },
-      { english: 'please', learnlang: 'por favor' },
-      { english: 'thank you', learnlang: 'gracias' },
-      { english: 'sorry', learnlang: 'lo siento' },
-      { english: 'friend', learnlang: 'amigo' },
-      { english: 'family', learnlang: 'familia' },
-      { english: 'house', learnlang: 'casa' },
-      { english: 'food', learnlang: 'comida' },
-      { english: 'water', learnlang: 'agua' },
-      { english: 'book', learnlang: 'libro' },
-      { english: 'pen', learnlang: 'pluma' },
-      { english: 'paper', learnlang: 'papel' },
-      { english: 'pencil', learnlang: 'lápiz' },
-      { english: 'computer', learnlang: 'ordenador' },
-      { english: 'phone', learnlang: 'teléfono' },
-      { english: 'internet', learnlang: 'internet' },
-      { english: 'music', learnlang: 'música' },
-      { english: 'song', learnlang: 'canción' },
-      { english: 'dance', learnlang: 'baile' },
-      { english: 'laugh', learnlang: 'risa' },
-      { english: 'cry', learnlang: 'llorar' },
-      { english: 'smile', learnlang: 'sonrisa' },
-      { english: 'speak', learnlang: 'hablar' },
-      { english: 'listen', learnlang: 'escuchar' },
-      { english: 'see', learnlang: 'ver' },
-      { english: 'hear', learnlang: 'oír' },
-      { english: 'feel', learnlang: 'sentir' },
-      { english: 'think', learnlang: 'pensar' },
-      { english: 'know', learnlang: 'saber' },
-      { english: 'understand', learnlang: 'entender' },
-      { english: 'learn', learnlang: 'aprender' },
-      { english: 'teach', learnlang: 'enseñar' },
-      { english: 'study', learnlang: 'estudiar' },
-      { english: 'work', learnlang: 'trabajar' },
-      { english: 'play', learnlang: 'jugar' },
-      { english: 'run', learnlang: 'correr' },
-      { english: 'jump', learnlang: 'saltar' },
-      { english: 'sit', learnlang: 'sentarse' },
-      { english: 'stand', learnlang: 'estar de pie' },
-      { english: 'walk', learnlang: 'caminar' },
-      { english: 'sleep', learnlang: 'dormir' },
-      { english: 'wake', learnlang: 'despertar' },
-      { english: 'wake up', learnlang: 'despertarse' },
-      { english: 'goodbye', learnlang: 'adiós' },
-      { english: 'morning', learnlang: 'mañana' },
-      { english: 'night', learnlang: 'noche' },
-      { english: 'sun', learnlang: 'sol' },
-      { english: 'moon', learnlang: 'luna' },
-      { english: 'star', learnlang: 'estrella' },
-      { english: 'cloud', learnlang: 'nube' },
-      { english: 'rain', learnlang: 'lluvia' },
-      { english: 'snow', learnlang: 'nieve' },
-      { english: 'wind', learnlang: 'viento' },
-      { english: 'storm', learnlang: 'tormenta' },
-      { english: 'day', learnlang: 'día' },
-      { english: 'week', learnlang: 'semana' },
-      { english: 'month', learnlang: 'mes' },
-      { english: 'year', learnlang: 'año' },
-      { english: 'clock', learnlang: 'reloj' },
-      { english: 'watch', learnlang: 'reloj' },
-      { english: 'calendar', learnlang: 'calendario' },
-      { english: 'today', learnlang: 'hoy' },
-      { english: 'tomorrow', learnlang: 'mañana' },
-      { english: 'yesterday', learnlang: 'ayer' },
-      { english: 'morning', learnlang: 'mañana' },
-      { english: 'afternoon', learnlang: 'tarde' },
-      { english: 'evening', learnlang: 'noche' },
-      { english: 'breakfast', learnlang: 'desayuno' },
-      { english: 'lunch', learnlang: 'almuerzo' },
-      { english: 'dinner', learnlang: 'cena' },
-      { english: 'meal', learnlang: 'comida' },
-      { english: 'dessert', learnlang: 'postre' },
-      { english: 'fruit', learnlang: 'fruta' },
-      { english: 'vegetable', learnlang: 'verdura' },
-      { english: 'meat', learnlang: 'carne' },
-      { english: 'fish', learnlang: 'pescado' },
-      { english: 'bread', learnlang: 'pan' },
-      { english: 'cake', learnlang: 'pastel' },
-      { english: 'cheese', learnlang: 'queso' },
-      { english: 'milk', learnlang: 'leche' },
-      { english: 'egg', learnlang: 'huevo' },
-      { english: 'coffee', learnlang: 'café' },
-      { english: 'tea', learnlang: 'té' },
-      { english: 'juice', learnlang: 'jugo' },
-      { english: 'watermelon', learnlang: 'sandía' },
-      { english: 'apple', learnlang: 'manzana' },
-      { english: 'banana', learnlang: 'plátano' },
-      { english: 'orange', learnlang: 'naranja' },
-      { english: 'grape', learnlang: 'uva' },
-      { english: 'strawberry', learnlang: 'fresa' },
-      { english: 'cherry', learnlang: 'cereza' },
-      { english: 'pear', learnlang: 'pera' },
-      { english: 'peach', learnlang: 'durazno' }
+      { english: 'hello', learnlang: 'zorkun' },
+      { english: 'world', learnlang: 'floktar' },
+      { english: 'good', learnlang: 'trewta' },
+      { english: 'bad', learnlang: 'zupat' },
+      { english: 'yes', learnlang: 'kwelok' },
+      { english: 'no', learnlang: 'lahzur' },
+      { english: 'please', learnlang: 'kaffon' },
+      { english: 'thank you', learnlang: 'xolpa' },
+      { english: 'sorry', learnlang: 'bruxta' },
+      { english: 'friend', learnlang: 'surtim' },
+      { english: 'family', learnlang: 'vintur' },
+      { english: 'house', learnlang: 'merkat' },
+      { english: 'food', learnlang: 'gonka' },
+      { english: 'water', learnlang: 'nexar' },
+      { english: 'book', learnlang: 'volkyr' },
+      { english: 'pen', learnlang: 'pelzam' },
+      { english: 'paper', learnlang: 'quoltra' },
+      { english: 'pencil', learnlang: 'trazna' },
+      { english: 'computer', learnlang: 'zalfuk' },
+      { english: 'phone', learnlang: 'brazik' },
+      { english: 'internet', learnlang: 'xifol' },
+      { english: 'music', learnlang: 'wimtar' },
+      { english: 'song', learnlang: 'rakon' },
+      { english: 'dance', learnlang: 'trilat' },
+      { english: 'laugh', learnlang: 'grolt' },
+      { english: 'cry', learnlang: 'miptor' },
+      { english: 'smile', learnlang: 'gandik' },
+      { english: 'speak', learnlang: 'valik' },
+      { english: 'listen', learnlang: 'grator' },
+      { english: 'see', learnlang: 'blorik' },
+      { english: 'hear', learnlang: 'jarnik' },
+      { english: 'feel', learnlang: 'ploft' },
+      { english: 'think', learnlang: 'kamzik' },
+      { english: 'know', learnlang: 'trefon' },
+      { english: 'understand', learnlang: 'balkut' },
+      { english: 'learn', learnlang: 'kamto' },
+      { english: 'teach', learnlang: 'sarnix' },
+      { english: 'study', learnlang: 'vritol' },
+      { english: 'work', learnlang: 'grintor' },
+      { english: 'play', learnlang: 'galtik' },
+      { english: 'run', learnlang: 'brakol' },
+      { english: 'jump', learnlang: 'daffar' },
+      { english: 'sit', learnlang: 'soktar' },
+      { english: 'stand', learnlang: 'vunkar' },
+      { english: 'walk', learnlang: 'yoltan' },
+      { english: 'sleep', learnlang: 'miplar' },
+      { english: 'wake', learnlang: 'zator' },
+      { english: 'wake up', learnlang: 'gomtar' },
+      { english: 'goodbye', learnlang: 'frokas' },
+      { english: 'morning', learnlang: 'vlorin' },
+      { english: 'night', learnlang: 'troska' },
+      { english: 'sun', learnlang: 'lytrik' },
+      { english: 'moon', learnlang: 'yoplan' },
+      { english: 'star', learnlang: 'volrik' },
+      { english: 'cloud', learnlang: 'melkor' },
+      { english: 'rain', learnlang: 'klonak' },
+      { english: 'snow', learnlang: 'glakto' },
+      { english: 'wind', learnlang: 'vritok' },
+      { english: 'storm', learnlang: 'miphal' },
+      { english: 'day', learnlang: 'korvik' },
+      { english: 'week', learnlang: 'jerma' },
+      { english: 'month', learnlang: 'talmok' },
+      { english: 'year', learnlang: 'krovik' },
+      { english: 'clock', learnlang: 'zelmok' },
+      { english: 'watch', learnlang: 'trozak' },
+      { english: 'calendar', learnlang: 'kivrat' },
+      { english: 'today', learnlang: 'fraltor' },
+      { english: 'tomorrow', learnlang: 'trakon' },
+      { english: 'yesterday', learnlang: 'plinor' },
+      { english: 'morning', learnlang: 'vurto' },
+      { english: 'afternoon', learnlang: 'krafar' },
+      { english: 'evening', learnlang: 'soltra' },
+      { english: 'breakfast', learnlang: 'frungar' },
+      { english: 'lunch', learnlang: 'harkon' },
+      { english: 'dinner', learnlang: 'rinkan' },
+      { english: 'meal', learnlang: 'totik' },
+      { english: 'dessert', learnlang: 'plenta' },
+      { english: 'fruit', learnlang: 'kalti' },
+      { english: 'vegetable', learnlang: 'prota' },
+      { english: 'meat', learnlang: 'nator' },
+      { english: 'fish', learnlang: 'gralon' },
+      { english: 'bread', learnlang: 'tarin' },
+      { english: 'cake', learnlang: 'peltra' },
+      { english: 'cookie', learnlang: 'lurkos' },
+      { english: 'cheese', learnlang: 'kopta' },
+      { english: 'butter', learnlang: 'seltar' },
+      { english: 'milk', learnlang: 'brittar' },
+      { english: 'egg', learnlang: 'blorik' },
+      { english: 'tea', learnlang: 'verlo' },
+      { english: 'coffee', learnlang: 'turpak' },
+      { english: 'juice', learnlang: 'zalen' },
+      { english: 'watermelon', learnlang: 'palto' },
+      { english: 'apple', learnlang: 'trinnok' },
+      { english: 'banana', learnlang: 'fripkik' },
+      { english: 'orange', learnlang: 'trangli' },
+      { english: 'grape', learnlang: 'krenza' },
+      { english: 'pear', learnlang: 'pozar' },
+      { english: 'pineapple', learnlang: 'hozzar' },
+      { english: 'strawberry', learnlang: 'grafak' },
+      { english: 'cherry', learnlang: 'plovza' },
+      { english: 'water', learnlang: 'rava' }
     ];
 
-    // Function to populate the word list
-    function populateWordList() {
-      const tableBody = document.querySelector('#word-list-container tbody');
-      wordList.forEach((item) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${item.english}</td><td>${item.learnlang}</td>`;
-        tableBody.appendChild(row);
-      });
-    }
+    // Function to generate the word list display
+    const wordListContainer = document.getElementById("word-list-container");
+    wordList.forEach(word => {
+      const wordItem = document.createElement("div");
+      wordItem.classList.add("word-item");
+      wordItem.innerHTML = `<span>${word.english}</span> <span>➡</span> <span>${word.learnlang}</span>`;
+      wordListContainer.appendChild(wordItem);
+    });
 
-    // Function to print the word list
+    // Print function
     function printWordList() {
       window.print();
     }
-
-    // Initialize the page
-    populateWordList();
   </script>
 
 </body>
