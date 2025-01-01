@@ -14,16 +14,26 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f7f7f7;
+      background-color: #f4f4f9;
       color: #333;
       padding: 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     header {
       background-color: #4CAF50;
       color: white;
-      padding: 15px;
+      padding: 20px;
+      width: 100%;
       text-align: center;
+    }
+
+    header nav {
+      margin-top: 10px;
     }
 
     header nav a {
@@ -39,16 +49,19 @@
 
     h1, h2 {
       text-align: center;
+      font-size: 2.5rem;
     }
 
     button {
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 25px;
       cursor: pointer;
       font-size: 16px;
-      margin: 10px;
+      margin: 15px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
@@ -56,13 +69,17 @@
     }
 
     section {
-      margin: 20px 0;
+      margin-top: 30px;
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
     }
 
     .word-table table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
+      font-size: 1.1rem;
     }
 
     .word-table th, .word-table td {
@@ -75,32 +92,71 @@
       text-align: center;
       margin-top: 40px;
       font-size: 14px;
+      color: #555;
     }
 
     #game-container {
-      margin-top: 20px;
-      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none;
+      width: 100%;
+      max-width: 500px;
     }
 
     #word-to-translate {
-      font-size: 24px;
+      font-size: 2rem;
       margin-bottom: 20px;
+      color: #333;
     }
 
     .game-buttons {
       display: flex;
-      justify-content: center;
-      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
     }
 
     .game-buttons button {
-      font-size: 18px;
-      padding: 10px 20px;
+      width: 45%;
+      font-size: 1.2rem;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .game-buttons button:hover {
+      background-color: #45a049;
     }
 
     #result {
       margin-top: 20px;
-      font-size: 20px;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    #word-list-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding-top: 20px;
+    }
+
+    #word-list-container table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    #word-list-container th, #word-list-container td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
     }
   </style>
 </head>
@@ -116,7 +172,7 @@
 
   <section id="home">
     <h2>Welcome to LearnLang!</h2>
-    <p>Learn a new language that is easy to start, but hard to master. Let's begin with a few words!</p>
+    <p>Start learning a language that's easy to begin with but hard to master.</p>
     <button onclick="startLearning()">Start Learning</button>
   </section>
 
@@ -124,8 +180,8 @@
     <h2>100 Common Words</h2>
     <p>Click below to view and print the word list.</p>
     <button onclick="printWordList()">Print Word List</button>
-    <div class="word-table">
-      <table id="words">
+    <div id="word-list-container">
+      <table>
         <thead>
           <tr>
             <th>English</th>
@@ -141,10 +197,10 @@
 
   <section id="games">
     <h2>Mini-Games</h2>
-    <p>Test your knowledge of LearnLang through fun mini-games!</p>
+    <p>Test your LearnLang skills in fun mini-games!</p>
     <button onclick="startMiniGame()">Play Game</button>
 
-    <div id="game-container" style="display:none;">
+    <div id="game-container">
       <div id="word-to-translate">Translate: </div>
       <div class="game-buttons" id="game-buttons"></div>
       <div id="result"></div>
@@ -205,50 +261,48 @@
       { english: 'storm', learnlang: 'lora' },
       { english: 'book', learnlang: 'nora' },
       { english: 'pen', learnlang: 'svira' },
-      { english: 'paper', learnlang: 'sivka' },
-      { english: 'computer', learnlang: 'mentra' },
-      { english: 'phone', learnlang: 'kavda' },
-      { english: 'music', learnlang: 'silva' },
-      { english: 'song', learnlang: 'tivra' },
-      { english: 'dance', learnlang: 'rinta' },
-      { english: 'movie', learnlang: 'monra' },
-      { english: 'game', learnlang: 'krima' },
-      { english: 'sport', learnlang: 'tivon' },
-      { english: 'art', learnlang: 'sumra' },
-      { english: 'painting', learnlang: 'hirva' },
-      { english: 'drawing', learnlang: 'narka' },
-      { english: 'sing', learnlang: 'hova' },
-      { english: 'speak', learnlang: 'varka' },
-      { english: 'read', learnlang: 'sevia' },
-      { english: 'write', learnlang: 'lorka' },
-      { english: 'language', learnlang: 'plota' },
-      { english: 'word', learnlang: 'brona' },
-      { english: 'sentence', learnlang: 'torna' },
-      { english: 'question', learnlang: 'kruva' },
-      { english: 'answer', learnlang: 'zorna' },
-      { english: 'why', learnlang: 'skrava' },
-      { english: 'how', learnlang: 'phira' },
-      { english: 'when', learnlang: 'korta' },
-      { english: 'where', learnlang: 'svara' },
-      { english: 'who', learnlang: 'drava' },
-      { english: 'what', learnlang: 'varna' },
-      { english: 'which', learnlang: 'dirka' }
+      { english: 'paper', learnlang: 'troka' },
+      { english: 'pencil', learnlang: 'murka' },
+      { english: 'computer', learnlang: 'zvorka' },
+      { english: 'phone', learnlang: 'marlo' },
+      { english: 'internet', learnlang: 'serva' },
+      { english: 'music', learnlang: 'quora' },
+      { english: 'song', learnlang: 'swira' },
+      { english: 'dance', learnlang: 'kavra' },
+      { english: 'laugh', learnlang: 'terva' },
+      { english: 'cry', learnlang: 'drova' },
+      { english: 'smile', learnlang: 'finra' },
+      { english: 'speak', learnlang: 'turka' },
+      { english: 'listen', learnlang: 'romka' },
+      { english: 'see', learnlang: 'yota' },
+      { english: 'hear', learnlang: 'salta' },
+      { english: 'feel', learnlang: 'krenka' },
+      { english: 'think', learnlang: 'verska' },
+      { english: 'know', learnlang: 'gorma' },
+      { english: 'understand', learnlang: 'altra' },
+      { english: 'learn', learnlang: 'zarka' },
+      { english: 'teach', learnlang: 'sarka' },
+      { english: 'study', learnlang: 'vikta' },
+      { english: 'work', learnlang: 'narvo' },
+      { english: 'play', learnlang: 'sivra' },
+      { english: 'run', learnlang: 'volka' },
+      { english: 'jump', learnlang: 'riora' },
+      { english: 'sit', learnlang: 'karsa' },
+      { english: 'stand', learnlang: 'krona' },
+      { english: 'walk', learnlang: 'virok' },
+      { english: 'sleep', learnlang: 'frala' },
+      { english: 'wake', learnlang: 'surka' },
+      { english: 'wake up', learnlang: 'duvra' },
+      { english: 'goodbye', learnlang: 'gorma' },
     ];
 
-    // Function to populate the word list table
+    // Populate the word list table
     function populateWordList() {
-      const wordTable = document.querySelector('#words tbody');
-      wordTable.innerHTML = ''; // Clear any existing rows
-
-      wordList.forEach(word => {
+      const tableBody = document.querySelector('#word-list-container tbody');
+      wordList.forEach((item) => {
         const row = document.createElement('tr');
-        const englishCell = document.createElement('td');
-        englishCell.textContent = word.english;
-        const learnLangCell = document.createElement('td');
-        learnLangCell.textContent = word.learnlang;
-        row.appendChild(englishCell);
-        row.appendChild(learnLangCell);
-        wordTable.appendChild(row);
+        row.innerHTML = `<td>${item.english}</td><td>${item.learnlang}</td>`;
+        tableBody.appendChild(row);
       });
     }
 
